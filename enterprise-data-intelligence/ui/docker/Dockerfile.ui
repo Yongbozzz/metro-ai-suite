@@ -20,6 +20,8 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 
+RUN apk add --no-cache --upgrade 'libxslt>=1.1.43-r4'
+
 COPY --from=vue-app /home/user/ui/dist /usr/share/nginx/html
 COPY ./ui/docker/nginx.conf /etc/nginx/templates/default.conf.template
 COPY ./ui/docker/replace-env.sh /docker-entrypoint.d/99-replace-runtime-env.sh
